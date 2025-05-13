@@ -1,0 +1,6 @@
+@APIDevelopment.WithEFCore_HostAddress = http://localhost:5289
+
+GET {{APIDevelopment.WithEFCore_HostAddress}}/api/books/
+Accept: application/json
+
+###
