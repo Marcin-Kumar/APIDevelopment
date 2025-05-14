@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APIDevelopment.WithEFCore.Migrations
 {
     [DbContext(typeof(LibraryContext))]
-    [Migration("20250513073238_InitialCreate")]
+    [Migration("20250514062804_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -25,6 +25,23 @@ namespace APIDevelopment.WithEFCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("APIDevelopment.WithEFCore.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
+
             modelBuilder.Entity("APIDevelopment.WithEFCore.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -33,13 +50,8 @@ namespace APIDevelopment.WithEFCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Author")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Genre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
@@ -50,7 +62,25 @@ namespace APIDevelopment.WithEFCore.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("APIDevelopment.WithEFCore.Models.Book", b =>
+                {
+                    b.HasOne("APIDevelopment.WithEFCore.Models.Author", "Author")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("APIDevelopment.WithEFCore.Models.Author", b =>
+                {
+                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }
