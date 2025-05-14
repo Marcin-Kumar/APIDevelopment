@@ -17,6 +17,6 @@ This solution is designed for practicing various concepts of API development in 
 This project demonstrates API development with Entity Framework Core. It includes CRUD operations for managing books and authors in a library system.
 
 ### [APIDevelopment.WithEFCore](./APIDevelopment.WithEFCore/README.md)
-This project demonstrates API development with Entity Framework Core. It includes CRUD operations for managing books and authors in a library system.
+This project demonstrates the basics of ASP.NET Core Web API development. It includes CRUD operations for weather forecasts.
 
 #### For further information please consult the project documentation.
